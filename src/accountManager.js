@@ -19,7 +19,7 @@ function getColumnId(tableName, columnName) {
     // Handle the error as needed
   }
 }
-const usernameColumnId = getColumnId("browsers", "username");
+`const usernameColumnId = getColumnId("browsers", "username");
 const statuscolumnId = getColumnId("browsers", "status");
 
 async function findAccountByUsername(username) {
@@ -55,7 +55,7 @@ async function findAccountByUsername(username) {
     return null; // Return null in case of an error
   }
 }
-
+`
 async function insertBrowserRow(data) {
   // Create an object representing the account data
   const existingAccount = await findAccountByUsername(data.username);
