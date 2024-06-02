@@ -21,7 +21,7 @@ async function loadPageData(
 
     clearTable(); // Clear existing table data before loading new page data
     if (tableId === accountTableId) {
-      pageData.forEach((data) => loadAccountData(data));
+      pageData.forEach((data) => loadBrowserData(data));
     }
   } catch (error) {
     console.log("Error loading page data: " + error);
