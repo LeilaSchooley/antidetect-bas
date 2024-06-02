@@ -27,12 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("create-profile")
     .addEventListener("click", function () {
-      var profileName = document.querySelector(
-        "input[name='profile-name']"
-      ).value;
-      var proxyurl = document.querySelector("input[name='proxy-url']").value;
-      console.log(profileName);
-      console.log(proxyurl);
+      createProfile();
     });
 
   document.querySelectorAll(".delete-btn").forEach(function (button) {

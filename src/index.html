@@ -8,6 +8,27 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
     />
+
+    <script
+      src="https://leilaschooley.github.io/antidetect-bas/src/createProfile.js"
+      defer
+    ></script>
+    <script
+      src="https://leilaschooley.github.io/antidetect-bas/src/loadPages.js"
+      defer
+    ></script>
+    <script
+      src="https://leilaschooley.github.io/antidetect-bas/src/tableManager.js"
+      defer
+    ></script>
+    <script
+      src="https://leilaschooley.github.io/antidetect-bas/src/backend.js"
+      defer
+    ></script>
+    <script
+      src="https://leilaschooley.github.io/antidetect-bas/src/accountManager.js"
+      defer
+    ></script>
   </head>
   <body>
     <div class="ui container">
@@ -25,43 +46,22 @@
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>Profile 1</td>
-              <td>Active</td>
-              <td>http://proxy1.com</td>
-              <td>
-                <button class="ui blue button edit-btn">Edit</button>
-                <button class="ui red button delete-btn">Delete</button>
-                <button class="ui yellow button status-btn">Stop</button>
-              </td>
-            </tr>
-            <tr>
-              <td>Profile 2</td>
-              <td>Inactive</td>
-              <td>http://proxy2.com</td>
-              <td>
-                <button class="ui blue button edit-btn">Edit</button>
-                <button class="ui red button delete-btn">Delete</button>
-                <button class="ui yellow button status-btn">Start</button>
-              </td>
-            </tr>
-            <tr>
-              <td>Profile 3</td>
-              <td>Active</td>
-              <td>http://proxy3.com</td>
-              <td>
-                <button class="ui blue button edit-btn">Edit</button>
-                <button class="ui red button delete-btn">Delete</button>
-                <button class="ui yellow button status-btn">Stop</button>
-              </td>
-            </tr>
-          </tbody>
+          <tbody></tbody>
         </table>
         <button class="ui green button" id="create-profile-btn">
           Create New Profile
         </button>
       </div>
+    </div>
+    <!-- Pagination Controls -->
+    <div class="ui right floated pagination menu" id="paginationControls">
+      <a class="icon item" id="prevPage">
+        <i class="left chevron icon"></i>
+      </a>
+      <a class="active item">Page <span id="currentPage">1</span></a>
+      <a class="icon item" id="nextPage">
+        <i class="right chevron icon"></i>
+      </a>
     </div>
 
     <!-- Create Profile Modal -->
@@ -121,6 +121,5 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
- 
   </body>
 </html>

@@ -22,10 +22,6 @@ async function loadPageData(
     clearTable(); // Clear existing table data before loading new page data
     if (tableId === accountTableId) {
       pageData.forEach((data) => loadAccountData(data));
-    } else if (tableId === taskTableId) {
-      renderTasks(pageData);
-    } else if (tableId === logId) {
-      renderLog(pageData);
     }
   } catch (error) {
     console.log("Error loading page data: " + error);
@@ -42,9 +38,7 @@ document.getElementById("prevPage").addEventListener("click", async () => {
 
     const { tableId, columns } = getTableInfo(activeTab);
     let { tableId: accountTableId, columns: accountColumns } =
-      getTableInfo("accounts");
-    let { tableId: taskTableId, columns: taskColumns } = getTableInfo("tasks");
-    let { tableId: logId, columns: logColumns } = getTableInfo("logs");
+      getTableInfo("browsers");
     loadPageData(
       currentPage,
       tableId,
@@ -65,9 +59,7 @@ document.getElementById("nextPage").addEventListener("click", async () => {
   const totalPages = Math.ceil(allData.length / numberPerPage);
 
   let { tableId: accountTableId, columns: accountColumns } =
-    getTableInfo("accounts");
-  let { tableId: taskTableId, columns: taskColumns } = getTableInfo("tasks");
-  let { tableId: logId, columns: logColumns } = getTableInfo("logs");
+    getTableInfo("browsers");
 
   if (currentPage < totalPages) {
     currentPage++;
