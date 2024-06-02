@@ -10,7 +10,7 @@ function createProfile(
     proxyurl: document.querySelector("input[name='proxy-url']").value,
   };
 
-  insertBrowserRow(accountData);
+  insertAccountRow(accountData);
   removeTable();
   //createTableHeader(columnNames.account);
 

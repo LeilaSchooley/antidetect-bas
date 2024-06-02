@@ -1,4 +1,3 @@
-$("#add-account").click(() => $("#addAccountModal").addClass("active"));
 function getColumnId(tableName, columnName) {
   try {
     const tableStructure = Api.GetDatabaseStructure();
@@ -22,51 +21,6 @@ function getColumnId(tableName, columnName) {
 }
 const usernameColumnId = getColumnId("browsers", "username");
 const statuscolumnId = getColumnId("browsers", "status");
-
-function addAccount(
-  accountTableId,
-  accountColumns,
-  accountTableId,
-  taskTableId,
-  logId
-) {
-  let cookies = document.querySelector('input[name="cookies"]').value;
-  if (cookies != "") {
-    cookies = extractCookies(cookies);
-  }
-
-  const accountData = {
-    username: document.querySelector('input[name="username"]').value,
-    password: document.querySelector('input[name="password"]').value,
-    proxy: document.querySelector('input[name="proxy"]').value,
-    recovery_email: document.querySelector('input[name="recovery_email"]')
-      .value,
-    recovery_pass: document.querySelector('input[name="recovery_pass"]').value,
-    phone: document.querySelector('input[name="phone"]').value,
-    cookies: cookies,
-    posts: 0,
-    fingerprint: "",
-    following: 0,
-    followers: 0,
-    status: "added",
-  };
-
-  insertBrowserRow(accountData);
-  removeTable();
-  createTableHeader(columnNames.account);
-
-  loadPageData(
-    1,
-    accountTableId,
-    accountColumns,
-    accountTableId,
-    taskTableId,
-    logId
-  ); // Load the first page of account data when the page loads
-}
-
-// Usage:
-// Assume you want to find the ColumnId of a column named "status" in the "browsers" table
 
 async function findAccountByUsername(username) {
   try {
@@ -139,39 +93,52 @@ async function insertBrowserRow(data) {
     });
 }
 
-function loadAccountData(accountData) {
+function loadBrowserData(accountData) {
   //console.log(accountData); // Log the accountData object to the console
 
-  const tbody = document.querySelector("tbody");
-  const row = document.createElement("tr");
-  row.setAttribute("id", accountData.id);
+  var parentElement = document.querySelector("tbody");
 
-  // Create a checkbox element
-  const checkboxCell = document.createElement("td");
-  const checkbox = document.createElement("input");
-  checkbox.type = "checkbox";
-  checkboxCell.appendChild(checkbox);
+  // Assuming you have a parent element (e.g., tbody) with the id "profile-table-body"
 
-  // Add other data cells
-  const usernameCell = document.createElement("td");
-  usernameCell.textContent = accountData["username"];
-  row.appendChild(checkboxCell);
+  // Create a new table row
+  var newRow = document.createElement("tr");
+  newRow.setAttribute("id", "accountData.id");
 
-  row.appendChild(usernameCell);
+  // Populate the table row with data
+  var profileNameCell = document.createElement("td");
+  profileNameCell.textContent = accountData["name"];
+  newRow.appendChild(profileNameCell);
 
-  row.appendChild(document.createElement("td")).textContent =
-    accountData["proxy"];
-  row.appendChild(document.createElement("td")).textContent =
-    accountData["posts"];
-  row.appendChild(document.createElement("td")).textContent =
-    accountData["following"];
-  row.appendChild(document.createElement("td")).textContent =
-    accountData["followers"];
-  row.appendChild(document.createElement("td")).textContent =
-    accountData["status"];
+  var statusCell = document.createElement("td");
+  statusCell.textContent = "Active";
+  newRow.appendChild(statusCell);
 
-  tbody.appendChild(row);
-  return row;
+  var proxyUrlCell = document.createElement("td");
+  proxyUrlCell.textContent = accountData["proxy"];
+  newRow.appendChild(proxyUrlCell);
+
+  var buttonCell = document.createElement("td");
+
+  var editButton = document.createElement("button");
+  editButton.classList.add("ui", "blue", "button", "edit-btn");
+  editButton.textContent = "Edit";
+  buttonCell.appendChild(editButton);
+
+  var deleteButton = document.createElement("button");
+  deleteButton.classList.add("ui", "red", "button", "delete-btn");
+  deleteButton.textContent = "Delete";
+  buttonCell.appendChild(deleteButton);
+
+  var statusButton = document.createElement("button");
+  statusButton.classList.add("ui", "yellow", "button", "status-btn");
+  statusButton.textContent = "Stop";
+  buttonCell.appendChild(statusButton);
+
+  newRow.appendChild(buttonCell);
+
+  // Append the new row to the parent element
+  parentElement.appendChild(newRow);
+  return newRow;
 }
 
 async function removeBannedAccounts() {
