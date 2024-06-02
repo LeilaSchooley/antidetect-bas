@@ -50,4 +50,32 @@ document.addEventListener("DOMContentLoaded", function () {
         .getElementById("delete-confirmation-modal")
         .classList.remove("show");
     });
+
+  // Api event handler...
+
+  ///// Api event handler
+  Api.SetEventHandler(function (EventType, EventData) {
+    ///// Script started
+    if (EventType == "start") {
+    }
+
+    if (EventType == "browser_add") {
+      var BrowserId = EventData["browser_id"];
+      var ThreadNumber = EventData["thread_number"];
+
+      //console.log(ThreadNumber);
+      //console.log(BrowserId);
+    }
+    ///// Script stopped
+    if (EventType == "stop") {
+    }
+
+    ///// More events: https://wiki.bablosoft.com/web-interface/#/managingscriptlifetime
+  });
+
+  ///// Automatically start script https://wiki.bablosoft.com/web-interface/#/managingscriptlifetime?id=method-acceptresources
+  Api.AcceptResources(true);
+
+  ///// After everything is initialized, may show body
+  $("body").fadeIn();
 });

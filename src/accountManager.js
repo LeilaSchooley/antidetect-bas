@@ -20,8 +20,8 @@ function getColumnId(tableName, columnName) {
     // Handle the error as needed
   }
 }
-const usernameColumnId = getColumnId("accounts", "username");
-const statuscolumnId = getColumnId("accounts", "status");
+const usernameColumnId = getColumnId("browsers", "username");
+const statuscolumnId = getColumnId("browsers", "status");
 
 function addAccount(
   accountTableId,
@@ -66,13 +66,13 @@ function addAccount(
 }
 
 // Usage:
-// Assume you want to find the ColumnId of a column named "status" in the "accounts" table
+// Assume you want to find the ColumnId of a column named "status" in the "browsers" table
 
 async function findAccountByUsername(username) {
   try {
-    // Get the table ID for the "accounts" table
+    // Get the table ID for the "browsers" table
     const tableId = Api.GetDatabaseStructure().find(
-      (table) => table.name === "accounts"
+      (table) => table.name === "browsers"
     ).id;
 
     // Define the condition for selecting accounts with a matching username
@@ -176,9 +176,9 @@ function loadAccountData(accountData) {
 
 async function removeBannedAccounts() {
   try {
-    // Get the table ID for the "accounts" table
+    // Get the table ID for the "browsers" table
     const tableId = Api.GetDatabaseStructure().find(
-      (table) => table.name === "accounts"
+      (table) => table.name === "browsers"
     ).id;
 
     // Define the condition for selecting accounts with status "banned"
