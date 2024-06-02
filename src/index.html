@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Browser Profiles Management</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+    />
+  </head>
+  <body>
+    <div class="ui container">
+      <div class="ui segment">
+        <h1 class="ui center aligned header">Browser Profiles</h1>
+      </div>
+
+      <div class="ui segment">
+        <table class="ui celled table">
+          <thead>
+            <tr>
+              <th>Profile Name</th>
+              <th>Status</th>
+              <th>Proxy</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Profile 1</td>
+              <td>Active</td>
+              <td>http://proxy1.com</td>
+              <td>
+                <button class="ui blue button edit-btn">Edit</button>
+                <button class="ui red button delete-btn">Delete</button>
+                <button class="ui yellow button status-btn">Stop</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Profile 2</td>
+              <td>Inactive</td>
+              <td>http://proxy2.com</td>
+              <td>
+                <button class="ui blue button edit-btn">Edit</button>
+                <button class="ui red button delete-btn">Delete</button>
+                <button class="ui yellow button status-btn">Start</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Profile 3</td>
+              <td>Active</td>
+              <td>http://proxy3.com</td>
+              <td>
+                <button class="ui blue button edit-btn">Edit</button>
+                <button class="ui red button delete-btn">Delete</button>
+                <button class="ui yellow button status-btn">Stop</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="ui green button" id="create-profile-btn">
+          Create New Profile
+        </button>
+      </div>
+    </div>
+
+    <!-- Create Profile Modal -->
+    <div class="ui modal" id="create-profile-modal">
+      <i class="close icon"></i>
+      <div class="header">Create New Profile</div>
+      <div class="content">
+        <form class="ui form">
+          <div class="field">
+            <label>Profile Name</label>
+            <input type="text" name="profile-name" placeholder="Profile Name" />
+          </div>
+          <div class="field">
+            <label>Proxy URL</label>
+            <input type="text" name="proxy-url" placeholder="Proxy URL" />
+          </div>
+
+          <button class="ui green button" type="submit" id="create-profile">
+            Create Profile
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="ui modal" id="edit-profile-modal">
+      <i class="close icon"></i>
+      <div class="header">Edit Profile</div>
+      <div class="content">
+        <form class="ui form">
+          <div class="field">
+            <label>Profile Name</label>
+            <input type="text" name="profile-name" value="Profile 1" />
+          </div>
+          <div class="field">
+            <label>Proxy URL</label>
+            <input type="text" name="proxy-url" value="http://proxy1.com" />
+          </div>
+          <button class="ui blue button" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+    <!-- Delete Confirmation Modal -->
+    <div class="ui modal" id="delete-confirmation-modal">
+      <i class="close icon"></i>
+      <div class="header">Delete Profile</div>
+      <div class="content">
+        <p>
+          Are you sure you want to delete the profile
+          <strong id="profile-to-delete"></strong>?
+        </p>
+      </div>
+      <div class="actions">
+        <button class="ui red button" id="confirm-delete-btn">Delete</button>
+        <button class="ui button">Cancel</button>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+ 
+  </body>
+</html>
