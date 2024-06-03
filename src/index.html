@@ -8,7 +8,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
     />
-
+    <!--
     <script
       src="https://leilaschooley.github.io/antidetect-bas/src/createProfile.js"
       defer
@@ -29,6 +29,8 @@
       src="https://leilaschooley.github.io/antidetect-bas/src/accountManager.js"
       defer
     ></script>
+
+    -->
   </head>
   <body>
     <div class="ui container">
@@ -72,11 +74,11 @@
         <form class="ui form">
           <div class="field">
             <label>Profile Name</label>
-            <input type="text" name="profile-name" placeholder="Profile Name" />
+            <input type="text" name="new-profile" placeholder="Profile Name" />
           </div>
           <div class="field">
             <label>Proxy URL</label>
-            <input type="text" name="proxy-url" placeholder="Proxy URL" />
+            <input type="text" name="new-proxy" placeholder="Proxy URL" />
           </div>
 
           <button class="ui green button" type="submit" id="create-profile">
@@ -94,11 +96,11 @@
         <form class="ui form">
           <div class="field">
             <label>Profile Name</label>
-            <input type="text" name="profile-name" value="Profile 1" />
+            <input type="text" name="profile-name" />
           </div>
           <div class="field">
             <label>Proxy URL</label>
-            <input type="text" name="proxy-url" value="http://proxy1.com" />
+            <input type="text" name="proxy-url" />
           </div>
           <button class="ui blue button" type="submit">Save</button>
         </form>
@@ -122,4 +124,92 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
   </body>
+  <script>
+    $(document).ready(function () {
+      $("form").on("submit", function (event) {
+        event.preventDefault();
+      });
+
+      $("#create-profile-btn").on("click", function () {
+        $("#create-profile-modal").modal("show");
+      });
+
+      $("#create-profile").on("click", function () {
+        async function createProfile() {
+          const accountData = {
+            name: document.querySelector("input[name='new-profile']").value,
+            proxy: document.querySelector("input[name='new-proxy']").value,
+          };
+          console.log(accountData);
+          await insertAccountRow(accountData);
+        }
+
+        async function insertAccountRow(data) {
+          try {
+            const Thread = new BASThread();
+
+            // Create an object representing the account data
+            const tableStructure = Api.GetDatabaseStructure();
+            const browsersTable = tableStructure.find(
+              (table) => table.name === "browsers"
+            );
+
+            if (!browsersTable) {
+              throw new Error("Browsers table not found.");
+            }
+
+            const tableId = browsersTable.id;
+            const columns = browsersTable.columns;
+
+            // Create an object to hold the data for the new row
+            const row = {};
+
+            // Populate the object with the data for the new row
+            const proxyColumn = columns.find(
+              (column) => column.name === "proxy"
+            );
+            const nameColumn = columns.find((column) => column.name === "name");
+
+            if (!proxyColumn || !nameColumn) {
+              throw new Error("Required columns not found.");
+            }
+
+            row[proxyColumn.id] = data.proxy;
+            row[nameColumn.id] = data.name;
+
+            const result = await Api.RunFunction("createProfile", {
+              name: data.name,
+              proxy: data.proxy,
+            });
+            console.log(result);
+
+            // Insert the new row into the table
+            const InsertedRecordId = await Api.DatabaseInsert([], row, tableId);
+            console.log(
+              `Browser row inserted successfully: ${InsertedRecordId}`
+            );
+
+            // Update the table UI (if needed)
+            // updateTableUI();
+          } catch (error) {
+            console.error("Error inserting row:", error);
+          }
+        }
+
+        createProfile();
+      });
+
+      $(".delete-btn").on("click", function () {
+        var profileName = $(this).data("profile");
+        $("#profile-to-delete").text(profileName);
+        $("#delete-confirmation-modal").modal("show");
+      });
+
+      $("#confirm-delete-btn").on("click", function () {
+        var profileName = $("#profile-to-delete").text();
+        console.log("Delete Profile:", profileName);
+        $("#delete-confirmation-modal").modal("hide");
+      });
+    });
+  </script>
 </html>
